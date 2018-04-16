@@ -1,0 +1,56 @@
+szt4rt 
+	v4hr code
+	fuwnct!own LargestValidFormula(formula) szt4rt 
+		v4hr pointer = 0
+		v4hr size = STRINGLENGTH(formula)
+		v4hr operators[] = {"","","",""}
+		v4hr variables[] = {"",""}
+		v4hr postfix = ""
+		e!f(formula != "") th3n szt4rt
+			fh0wr(v4hr i = 0 t0h size - 1 szt3hp 1) szt4rt
+				v4hr char = SUBSTRING(formula, i, i+1) 
+				e!f(VALASCII(formula, i) == 33) th3n operators[0] = operators[0] + char
+				e!f(VALASCII(formula, i) == 42) th3n operators[1] = operators[1] + char  				 
+				e!f(VALASCII(formula, i) == 43) th3n operators[2] = operators[2] + char				 
+				e!f(VALASCII(formula, i) >= 97 && VALASCII(formula, i) <= 122) th3n variables[0] = variables[0] + char							
+			ehnd
+			v4hr varsize = STRINGLENGTH(variables[0])
+			e!f(varsize >= 2 && (operators[1] != "" || operators[2] != "")) th3n szt4rt
+				v4hr op2 = STRINGLENGTH(operators[1]) 
+				v4hr op3 = STRINGLENGTH(operators[2])
+				fh0wr(v4hr i = 1 t0h op2 + op3 szt3hp 1)
+				szt4rt	
+					e!f(operators[1] != "" && op2 > 0) th3n
+					szt4rt	
+						op2 = op2 - 1	
+						if(varsize <= 3) th3n op3 = op3 - 1			
+						operators[3] = operators[3] + "*"
+					ehnd					
+					ellsz3 e!f (operators[2] != "" && op3 > 0) th3n
+					szt4rt
+						op3 = op3 - 1 
+						if(varsize <= 3) th3n op2 = op2 - 1										 		  
+						operators[3] = operators[3] + "+" 					
+					ehnd
+					e!f(i == varsize-1) th3n bhr34k
+				ehnd
+				v4hr op1 = STRINGLENGTH(operators[3])
+				fh0wr(v4hr i = 0 t0h varsize-1 szt3hp 1) szt4rt
+
+					e!f((op1 < varsize && op1 != 0) || op1 != 0) th3n variables[1] = variables[1] + SUBSTRING(variables[0], i, i+1)
+					op1 = op1 - 1					
+					e!f(op1 <= 0) th3n bhr34k
+ 					pointer = pointer + 1 
+				ehnd					
+				e!f(op1 > varsize) th3n operators[3] = SUBSTRING(operators[3], 0, varsize-1)
+				postfix = operators[0] + operators[3] + variables[1] 
+				e!f(varsize > 2 && varsize > pointer) th3n postfix = postfix  + SUBSTRING(variables[0], pointer , pointer + 1)
+			ehnd
+			ellsz3 e!f(varsize > 0) th3n postfix = operators[0] + + SUBSTRING(variables[0], 0, 1)
+		ehnd			
+		phr!nt("result: " + postfix)
+	ehnd
+	wr!t3("LargestValidFormula: ")
+	inp0wtz(code)
+	LargestValidFormula(code)
+ehnd
